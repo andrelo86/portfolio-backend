@@ -36,12 +36,18 @@ app.use('/', indexRouter);
 //MODELS
 var JobData = require('./public/model/jobDataModel.ts');
 
+app.get('/', function(request, response) {
+    var result = 'App is running'
+    response.send(result);
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
 
 /**
  * GET /jobData
  * Purpose: Get all jobDatas
  */
-app.get('/description', (req, res) => {  
+app.get('/api/description', (req, res) => {  
     JobData.find(req.query)
         .then((jobData) => {
             console.log(jobData);
