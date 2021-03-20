@@ -1,7 +1,6 @@
 // Require Mongoose
 let mongo = require('mongoose');
 
-// Schemas
 let Schema = mongo.Schema;
 const jobDataSchema = new Schema({
     organization: String,
