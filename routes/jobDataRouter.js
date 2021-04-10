@@ -15,7 +15,6 @@ let JobData = require('../public/models/jobDataModel.ts');
 router.get('/portfolio/job/description', (req, res) => {  
     JobData.find(req.query)
         .then((jobData) => {
-            console.log(jobData);
             res.send(jobData);
         }).catch((e) => {
             res.send(e);

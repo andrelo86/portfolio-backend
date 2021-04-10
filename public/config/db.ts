@@ -1,17 +1,19 @@
 let encoder = require("crypto-js");
-const mongoose = require('mongoose');
+let mongoose = require('mongoose');
+let pino = require('pino');
 
 let config = require('./dbcredentials.json');
 let credentials = encoder.AES.decrypt(config.db.mongoCredentials, 'secret key 123').toString(encoder.enc.Utf8);
+let logger = pino();
 
 mongoose.Promise = global.Promise;
 
 mongoose.connect(`mongodb+srv://${credentials}@${config.db.dbName}.jvjmv.mongodb.net/${config.db.dbName}?${config.db.configParams}`, { useNewUrlParser: true }).
     then(() => {
-        console.log("Connected to MongoDB successfully :)");
+        logger.info("Connected to MongoDB successfully :)");
     }).catch((e) => {
-        console.log("Error while attempting to connect to MongoDB");
-        console.log(e);
+        logger.info("Error while attempting to connect to MongoDB");
+        logger.info(e);
     });
 
 // To prevent deprectation warnings (from MongoDB native driver)
